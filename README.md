@@ -10,7 +10,7 @@
 Cette partie est spécialement pour le **frontend** du projet. Il est sous **VueJS**
  avec la base de **[Vuetify](https://vuetifyjs.com/)** comme framework.
 
-> **NOTE**
+> **Note**
 >
 > Si vous souhaitez voir la page **Backend**, veuillez [vous rendre sur ce dépôt GitHub](https://github.com/thomasbnt/DW_P7_Groupomania_backend_OC).
 >

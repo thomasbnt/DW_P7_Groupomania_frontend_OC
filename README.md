@@ -1,6 +1,5 @@
-![Frontend part](https://img.shields.io/badge/This%20repository%20is%20the%20Frontend%20part-informational?style=for-the-badge&logo=github)
+[![Fait avec VueJs](https://img.shields.io/badge/-Fait%20avec%20Vue.js-4fc08d?style=for-the-badge&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
 [![Wakatime](https://wakatime.com/badge/github/thomasbnt/DW_P7_Groupomania_frontend_OC.svg?style=for-the-badge)](https://wakatime.com/badge/github/thomasbnt/DW_P7_Groupomania_backend_OC)
-[![Build with VueJs](https://img.shields.io/badge/-Build%20with%20Vue.js-4fc08d?style=for-the-badge&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
 
 ![Groupomania logo](groupomania.svg)
 
@@ -9,19 +8,24 @@
 ## Introduction
 
 Cette partie est spécialement pour le **frontend** du projet. Il est sous **VueJS**
- avec la base de **[Vuetify](https://vuetifyjs.com/en/)** comme framework.
+ avec la base de **[Vuetify](https://vuetifyjs.com/)** comme framework.
+
+> **NOTE**
+>
+> Si vous souhaitez voir la page **Backend**, veuillez [vous rendre sur ce dépôt GitHub](https://github.com/thomasbnt/DW_P7_Groupomania_backend_OC).
+>
+> [![Partie Backend](https://img.shields.io/badge/Aller%20voir%20la%20partie%20Backend%20→-informational?style=for-the-badge)](https://github.com/thomasbnt/DW_P7_Groupomania_backend_OC)
+
 
 ## Installation
 
 Pour pouvoir exécuter ce projet, veuillez suivre ces étapes.
 
 1. Installez **NodeJS** (>= 16.10) et **npm**.
-2. Installez les dépendances nécessaires aux deux parties (frontend et backend).
+2. Installez les dépendances nécessaires
 3. Copiez le fichier [.env.example](/.env.example) en `.env` et remplacez les valeurs par vos propres.
-4. N'oubliez pas d'avoir un accès à votre base de données MariaDB
-5. Exécutez le script backend, à coup de `npm run serve`. _Port 3000_
-6. Exécutez le script frontend, à coup de `npm run start`. _Port 4200_ (Ou `ng serve`)
-7. Vous pouvez maintenant accéder à l'interface de votre site.
+4. Exécutez le script backend, à coup de `npm run serve`. _Port 3000_
+5. Vous pouvez maintenant accéder à l'interface de votre site.
 
 ## Configuration du .env
 Exemple de `.env` :
@@ -33,11 +37,15 @@ Exemple de `.env` :
 
 ## Cahier des charges
 
+- [ ]  Respecter le code couleur
+- [ ]  Mettre en place les pages demandées
+- [ ]  Site web responsive
+- [ ]  Standards WCAG
+- [ ]  Utiliser un framework JS
 
 ## Développement
 
 - Projet réalisé avec **IntelliJ**.
-- Testé avec [Hoppscotch](https://hoppscotch.io). (_Fichier de configuration : [`.hoppscotch.json`](hoppscotch.json)_)
 
 ## Contributions
 

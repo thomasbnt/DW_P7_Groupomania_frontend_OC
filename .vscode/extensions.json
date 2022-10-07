@@ -1,3 +1,11 @@
 {
-  "recommendations": ["Vue.volar", "Vue.vscode-typescript-vue-plugin"]
+  "recommendations": [
+    "Vue.volar",
+    "octref.vetur",
+    "IronGeek.vscode-env",
+    "dbaeumer.vscode-eslint",
+    "christian-kohler.npm-intellisense",
+    "esbenp.prettier-vscode",
+    "syler.sass-indented"
+  ]
 }

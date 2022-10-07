@@ -66,7 +66,7 @@ Exemple de `.env` :
 
 ## Développement
 
-- Projet réalisé avec **IntelliJ**.
+- Projet réalisé principalement avec **VSCode**.
 - Maquette du site web réalisée avec **Figma**.
 
 ## Contributions

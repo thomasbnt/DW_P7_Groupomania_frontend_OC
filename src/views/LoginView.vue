@@ -1,9 +1,9 @@
 <template>
   <navbar_main />
   <v-container>
-    <v-card>
+    <v-card class="pa-4">
       <h1>Se connecter</h1>
-      <form @submit.prevent="login">
+      <form @submit.prevent="login" class="mb-3">
         <v-text-field
           v-model="email"
           label="E-mail"
@@ -20,12 +20,15 @@
           hint="Entrez votre mot de passe"
           required
         ></v-text-field>
-        <v-btn class="mt-4" type="submit" @click="submit" value="Se connecter"> Connexion </v-btn>
+        <v-switch v-model="remember_me" label=" Se souvenir de moi" color="green"></v-switch>
+        <v-btn block x-large class="mt-2 bg-primary" type="submit" @click="submit" value="Se connecter"> Connexion </v-btn>
       </form>
-      <v-divider></v-divider>
-      <v-flex>
-        <p>Pas encore de compte ?</p>
-        <router-link to="/signup" class="text-primary">S'enregistrer</router-link>
+      <v-divider class="mb-2"></v-divider>
+      <v-flex class="pa-4 align-center text-center">
+        <p>
+          Pas encore de compte ?
+          <router-link to="/signup" class="text-primary">S'enregistrer →</router-link>
+        </p>
       </v-flex>
     </v-card>
   </v-container>
@@ -47,6 +50,7 @@ export default defineComponent({
     return {
       email: "",
       password: "",
+      remember_me: false,
       emailRules: [(v) => !!v || "E-mail est requis", (v) => /.+@.+/.test(v) || "E-mail doit être valide"],
       passwordRules: [
         (v) => !!v || "Le mot de passe est requis",
@@ -70,7 +74,7 @@ export default defineComponent({
       if (data.error) {
         alert(data.error);
       } else {
-        console.log("Succès")
+        console.log("Succès");
         // Sinon on stocke le token dans le localStorage
         localStorage.setItem("session_token", data.session_token);
         // On redirige vers la page d'accueil

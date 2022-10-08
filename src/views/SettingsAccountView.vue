@@ -1,21 +1,29 @@
 <template>
   <navbar_main />
   <v-container>
-    <v-card>
-      <h1>Mon compte</h1>
-      <h2>
+    <v-card class="pa-4">
+      <h1 class="mb-10">Mon compte</h1>
+      <h2 class="mb-5">
         <v-icon>mdi-account-edit</v-icon>
         Mes informations publiques
       </h2>
-      <img :src="imageProfile" />
+      <div class="d-flex align-center">
+        <img :src="imageProfile" class="mr-3" />
+        <p>
+          Bonjour <b>{{ firstName }} {{ lastName }}</b>
+        </p>
+      </div>
+      <v-divider class="mt-6 mb-9"></v-divider>
+
       <v-file-input
-        :rules="rules"
-        accept="image/png, image/jpeg, image/bmp image/gif"
-        placeholder="Modifier votre avatar"
+        v-model="file"
+        label="Image de profil"
         prepend-icon="mdi-cloud-upload"
-        label="Avatar"
-      >
-      </v-file-input>
+        show-size
+        accept="image/png, image/jpeg, image/bmp image/gif"
+        outlined
+      ></v-file-input>
+
       <v-row>
         <v-col>
           <v-text-field

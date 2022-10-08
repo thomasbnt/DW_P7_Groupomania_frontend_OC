@@ -18,6 +18,7 @@
       @click="loader = 'loading'"
       to="/login"
     >
+      <v-icon class="mr-2"> mdi-login </v-icon>
       Se connecter
     </v-btn>
   </v-flex>
@@ -30,16 +31,12 @@
       @click="loader = 'loading'"
       to="/settings"
     >
+      <v-icon class="mr-2"> mdi-account </v-icon>
       Mon compte
     </v-btn>
-    <v-btn
-      elevation="2"
-      :loading="loading"
-      :disabled="loading"
-      class="text-red"
-      @click="loader = 'loading'"
-      to="/logout"
-    >
+
+    <v-btn elevation="2" class="text-red" to="/logout">
+      <v-icon class="mr-2"> mdi-logout </v-icon>
       Se déconnecter
     </v-btn>
   </v-flex>

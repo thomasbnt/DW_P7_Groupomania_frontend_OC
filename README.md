@@ -1,6 +1,6 @@
 [![Fait avec VueJs](https://img.shields.io/badge/-Fait%20avec%20Vue.js-4fc08d?style=for-the-badge&logo=vuedotjs&logoColor=white)](https://vuejs.org/)
 [![Et Vite](https://img.shields.io/badge/-Et%20Vite-4fc08d?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Wakatime](https://wakatime.com/badge/github/thomasbnt/DW_P7_Groupomania_frontend_OC.svg?style=for-the-badge)](https://wakatime.com/badge/github/thomasbnt/DW_P7_Groupomania_backend_OC)
+[![Wakatime](https://wakatime.com/badge/github/thomasbnt/DW_P7_Groupomania_frontend_OC.svg?style=for-the-badge)](https://wakatime.com/badge/github/thomasbnt/DW_P7_Groupomania_frontend_OC)
 
 ![Groupomania logo](groupomania.svg)
 

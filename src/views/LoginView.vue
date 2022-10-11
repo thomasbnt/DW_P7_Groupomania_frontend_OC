@@ -1,8 +1,11 @@
 <template>
   <navbar_main />
   <v-container>
-    <v-card class="pa-4">
-      <h1>Se connecter</h1>
+    <v-card class="pa-4 mt-10">
+      <h1 class="mb-10 text-uppercase">
+        <v-icon>mdi-login</v-icon>
+        Connexion
+      </h1>
       <form @submit.prevent="login" class="mb-3">
         <v-text-field
           v-model="email"
@@ -11,7 +14,8 @@
           hint="Entrez votre adresse email"
           placeholder="elliot@alder.son"
           required
-        ></v-text-field>
+        >
+        </v-text-field>
         <v-text-field
           v-model="password"
           type="password"
@@ -21,7 +25,9 @@
           required
         ></v-text-field>
         <v-switch v-model="remember_me" label=" Se souvenir de moi" color="green"></v-switch>
-        <v-btn block x-large class="mt-2 bg-primary" type="submit" @click="submit" value="Se connecter"> Connexion </v-btn>
+        <v-btn block x-large class="mt-2 bg-primary" type="submit" @click="submit" value="Se connecter">
+          Connexion
+        </v-btn>
       </form>
       <v-divider class="mb-2"></v-divider>
       <v-flex class="pa-4 align-center text-center">
@@ -42,7 +48,6 @@ import navbar_main from "../components/navbar_main.vue";
 
 export default defineComponent({
   name: "LoginView",
-
   components: {
     navbar_main,
   },
@@ -84,3 +89,8 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+a {
+  text-decoration: none;
+}
+</style>

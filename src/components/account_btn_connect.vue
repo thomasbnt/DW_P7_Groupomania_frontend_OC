@@ -4,38 +4,28 @@
       elevation="2"
       :loading="loading"
       :disabled="loading"
-      class="text-notblack"
+      class="text-notblack ml-1 mr-1 mb-1"
       @click="loader = 'loading'"
-      to="/signup"
+      to="/signup" block
     >
+    <v-icon class="mr-2">mdi-account-plus</v-icon>
       S'enregistrer
     </v-btn>
     <v-btn
       elevation="2"
       :loading="loading"
       :disabled="loading"
-      class="text-primary"
+      class="text-primary ml-1 mr-1"
       @click="loader = 'loading'"
       to="/login"
+      block
     >
       <v-icon class="mr-2"> mdi-login </v-icon>
       Se connecter
     </v-btn>
   </v-flex>
   <v-flex v-else>
-    <v-btn
-      elevation="2"
-      :loading="loading"
-      :disabled="loading"
-      class="text-notblack"
-      @click="loader = 'loading'"
-      to="/settings"
-    >
-      <v-icon class="mr-2"> mdi-account </v-icon>
-      Mon compte
-    </v-btn>
-
-    <v-btn elevation="2" class="text-red" to="/logout">
+    <v-btn elevation="2" class="text-red ml-1 mr-1 mt-2" to="/logout" block>
       <v-icon class="mr-2"> mdi-logout </v-icon>
       Se déconnecter
     </v-btn>

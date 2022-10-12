@@ -1,5 +1,6 @@
 <template>
   <status_bar />
+  <status_api />
   <navbar_main :user="userProfile" />
   <nav_drawer_desktop :user="userProfile" />
   <v-container>
@@ -15,6 +16,7 @@ import { defineComponent } from "vue";
 import navbar_main from "../components/navbar_main.vue";
 import nav_drawer_desktop from "../components/nav_drawer_desktop.vue";
 import status_bar from "../components/status_bar.vue";
+import status_api from "../components/status_api.vue";
 
 export default defineComponent({
   name: "HomeView",
@@ -22,6 +24,7 @@ export default defineComponent({
     navbar_main,
     nav_drawer_desktop,
     status_bar,
+    status_api,
   },
   data: () => ({
     userProfile: {},

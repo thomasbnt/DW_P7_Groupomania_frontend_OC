@@ -125,9 +125,16 @@ export default {
         },
       });
       const data = await response.json();
+      console.log(data)
+      if (data.codeError === "USER_NOT_FOUND") {
+        localStorage.removeItem("session_token");
+        this.$router.push("/login?deletedAccount=false?error=USER_NOT_FOUND");
+    
+      }
+
       if (data.success) {
         localStorage.removeItem("session_token");
-        this.$router.push("/login");
+        this.$router.push("/login?deletedAccount=true");
       }
     },
   },

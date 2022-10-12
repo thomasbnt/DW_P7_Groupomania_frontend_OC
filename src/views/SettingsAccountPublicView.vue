@@ -1,5 +1,5 @@
 <template>
-  <navbar_main />
+  <navbar_main :user="userProfile" />
   <nav_drawer_desktop :user="userProfile" />
   <v-container>
     <v-card class="pa-4">
@@ -7,16 +7,15 @@
         <v-icon>mdi-account-edit</v-icon>
         Mes informations publiques
       </h1>
-      <!-- <div class="d-flex align-center">
-        <p>
+      <div class="d-flex align-center">
+        <p class="mb-5">
           Bonjour <b>{{ actualFirstName }} {{ actualLastName }}</b>
         </p>
-      </div> -->
+      </div>
       <form_settings_public_account :user="userProfile" />
 
       <v-divider class="mt-6 mb-9"></v-divider>
       <section class="mt-10">
-        <v-divider class="ma-5"></v-divider>
         <p>Vous souhaitez modifier votre adresse email, votre mot de passe ou supprimer votre compte ?</p>
         <p class="mt-2">Cliquez sur le bouton ci-dessous pour accéder à la page de gestion de votre compte.</p>
         <v-btn block class="mt-5" link href="/security"> Paramètres de sécurité</v-btn>
@@ -34,7 +33,7 @@ export default {
   components: { navbar_main, nav_drawer_desktop, form_settings_public_account },
   data: () => ({
     userProfile: {},
-    user_connected: localStorage.getItem("session_token") ? true : false,
+    user_connected: !!localStorage.getItem("session_token"),
     namesRules: [(v) => !!v || "Ce champ est requis"],
   }),
   methods: {

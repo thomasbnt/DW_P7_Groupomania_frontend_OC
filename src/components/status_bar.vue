@@ -1,5 +1,5 @@
 <template>
-  <v-system-bar color="green darken-4" v-if="statusBarActived">
+  <v-system-bar color="green darken-4" v-if="statusBarActivated">
     <v-spacer></v-spacer>
     <v-items class="mr-1 ml-1">{{ stats.users }} <v-icon>mdi-account</v-icon></v-items>
     <v-items class="mr-1 ml-1">{{ stats.posts }} <v-icon>mdi-post</v-icon></v-items>
@@ -10,7 +10,7 @@
 export default {
   name: "status_bar",
   data: () => ({
-    statusBarActived: false,
+    statusBarActivated: false,
     status: "Hors ligne",
     stats: {
       users: 0,
@@ -29,13 +29,13 @@ export default {
       const data = await response.json();
       const userConnected = localStorage.getItem("session_token") ? true : false;
       if (data.status === "Tout est up!" && userConnected) {
-        this.statusBarActived = true;
+        this.statusBarActivated = true;
         this.status = data.status;
         this.stats.users = data.stats.usersCount;
         this.stats.posts = data.stats.postsCount;
         this.stats.reactions = data.stats.reactionsCount;
       } else {
-        this.statusBarActived = false;
+        this.statusBarActivated = false;
       }
     },
   },

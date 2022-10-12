@@ -5,7 +5,6 @@
         <v-col cols="4">
           <v-sheet class="pa-2 ma-2">
             <v-list-item-avatar color="darken-2">
-              {{ user }}
               <v-img class="elevation-2 image_profile" src="" draggable="false"></v-img>
             </v-list-item-avatar>
           </v-sheet>
@@ -13,7 +12,7 @@
         <v-col>
           <v-sheet class="pa-2 ma-2">
             <v-list-item-subtitle>Connecté</v-list-item-subtitle>
-            <!-- <v-list-item-title>{{ user.firstName + " " + user.lastName }}</v-list-item-title> -->
+            <v-list-item-title></v-list-item-title>
           </v-sheet>
         </v-col>
       </v-row>
@@ -42,13 +41,14 @@
 <script>
 export default {
   name: "profile_icon",
-  props: {
-    user: Object,
-  },
   data() {
     return {
+      userProfile: {},
       user_connected: localStorage.getItem("session_token") ? true : false,
     };
+  },
+  props: {
+    user: Object,
   },
 };
 </script>

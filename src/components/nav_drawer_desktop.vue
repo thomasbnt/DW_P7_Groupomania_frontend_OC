@@ -7,6 +7,11 @@
 import nav_content from "./nav_content.vue";
 export default {
   name: "nav_drawer_desktop",
+  data () {
+    return {
+      userProfile: {},
+    }
+  },
   props: {
     user: Object,
   },

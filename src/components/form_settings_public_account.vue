@@ -37,7 +37,11 @@
 </template>
 <script>
 export default {
-  data: {},
+  data () {
+    return {
+      userProfile: {},
+    }
+  },
   props: {
     user: Object,
   },

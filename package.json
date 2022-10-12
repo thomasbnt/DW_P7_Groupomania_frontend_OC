@@ -4,8 +4,8 @@
   "scripts": {
     "serve": "vite preview",
     "build": "vite build",
-    "dev": "vite",
-    "preview": "vite preview --port 4173"
+    "dev": "vite --port 3333",
+    "preview": "vite preview --port 3333"
   },
   "dependencies": {
     "@mdi/font": "5.9.55",

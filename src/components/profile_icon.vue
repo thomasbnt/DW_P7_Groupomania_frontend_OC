@@ -41,15 +41,28 @@
 <script>
 export default {
   name: "profile_icon",
-  props: {
-    user: Object
-  },
   data() {
     return {
       userProfile: {},
       user_connected: !!localStorage.getItem("session_token")
     };
   },
+  methods: {
+    async getUserProfile() {
+      const session_token = localStorage.getItem("session_token");
+      const response = await fetch("http://localhost:3000/users/me", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${session_token}`
+        }
+      });
+      const data = await response.json();
+      this.userProfile = data.success.user;
+    }
+  },
+  created() {
+    this.getUserProfile();
+  }
 };
 </script>
 <style scoped>

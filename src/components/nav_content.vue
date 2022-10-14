@@ -1,9 +1,6 @@
 <template>
   <div>
     <profile_icon :user="userProfile" />
-    {{ userProfile }}
-    {{ user }}
-
     <v-list nav dense>
       <v-list-item
         v-for="item in items"

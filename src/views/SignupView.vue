@@ -186,15 +186,13 @@ export default defineComponent({
       });
       const data = await response.json();
       console.log(data);
-      if (data.error) {
+      if (data.code !== "ACCOUNT_CREATED") {
         this.messageConfirmation = "";
         this.messageError = data.error;
       }
-      if (data.success) {
+      if (data.code === "ACCOUNT_CREATED") {
         this.messageError = "";
         this.messageConfirmation = data.success;
-        // On enregistre le token dans le localStorage
-        localStorage.setItem("session_token", data.session_token);
         // 3 secondes puis redirect to login
         setTimeout(() => {
           this.$router.push("/");

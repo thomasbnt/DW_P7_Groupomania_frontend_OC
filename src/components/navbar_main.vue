@@ -2,42 +2,39 @@
   <v-app-bar>
     <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="d-flex d-sm-flex d-md-none"></v-app-bar-nav-icon>
     <router-link to="/" class="ml-2 groupomania_logo">
-      <img src="/src/assets/img/logo.svg" class="align-self-center" />
+      <img src="/src/assets/img/logo.svg" class="align-self-center" alt="Logo Groupomania" />
     </router-link>
     <v-spacer></v-spacer>
   </v-app-bar>
-  <v-navigation-drawer v-model="drawer" fixed bottom temporary>
-    <nav_content :user="user" />
+
+  <!-- Menu Mobile -->
+  <v-navigation-drawer v-model="drawer" fixed bottom temporary :user="userProfile">
+    <nav_content :user="userProfile" />
   </v-navigation-drawer>
 </template>
 
 <script>
-import toggleTheme from "./toggletheme.vue";
-import account_btn_connect from "./account_btn_connect.vue";
-import profile_icon from "./profile_icon.vue";
-import profile_image from "./profile_image.vue";
 import nav_content from "./nav_content.vue";
 
 export default {
   name: "navbar_main",
-  props: {
-    user: Object,
-  },
   components: {
-    toggleTheme,
-    account_btn_connect,
-    profile_icon,
-    profile_image,
-    nav_content,
+    nav_content
   },
-  data: () => ({
-    drawer: false,
-  }),
+  props: {
+    user: Object
+  },
+  data() {
+    return {
+      userProfile: {},
+      drawer: false
+    };
+  },
   watch: {
     group() {
       this.drawer = false;
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
@@ -45,6 +42,7 @@ export default {
   max-width: 85%;
   margin: 0.5rem 1rem 0 auto;
 }
+
 @media screen and (max-width: 600px) {
   .groupomania_logo img {
     max-width: 80%;

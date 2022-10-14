@@ -48,21 +48,13 @@ npm run dev
 npm run build
 ```
 
-## Configuration du .env
-Exemple de `.env` :
-
-```dotenv
-
-
-```
-
 ## Cahier des charges
 
-- [ ]  Respecter le code couleur
-- [ ]  Mettre en place les pages demandées
-- [ ]  Site web responsive
+- [x]  Respecter le code couleur
+- [x]  Mettre en place les pages demandées
+- [x]  Site web responsive
 - [ ]  Standards WCAG
-- [ ]  Utiliser un framework JS
+- [x]  Utiliser un framework JS
 
 ## Développement
 

@@ -1,53 +1,13 @@
 <template>
-  <navbar_main />
-  <nav_drawer_desktop />
+  <navbar_main :user="userProfile" />
+  <MenuDesktop :user="userProfile" />
   <v-container>
     <v-card class="pa-4">
       <h1 class="mb-10 text-uppercase">
         <v-icon>mdi-security</v-icon>
         Paramètres de sécurité
       </h1>
-      <v-form @submit="editPrivateInfos">
-        <v-text-field
-          :rules="[emailRules]"
-          prepend-icon="mdi-email"
-          v-model="email"
-          :label="actualEmail"
-          hint="Entrez votre nouvelle adresse email"
-          type="email"
-          :placeholder="actualEmail"
-          required
-        ></v-text-field>
-        <v-row>
-          <v-col>
-            <v-text-field
-              :rules="[passwordRules, passwordMatch]"
-              :type="showPassword ? 'text' : 'password'"
-              @click:append="showPassword = !showPassword"
-              prepend-icon="mdi-form-textbox-password"
-              v-model="password"
-              label="Mot de passe"
-              hint="Entrez votre nouveau mot de passe"
-              type="password"
-              placeholder="***************"
-              required
-            ></v-text-field>
-          </v-col>
-          <v-col>
-            <v-text-field
-              :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="showPassword = !showPassword"
-              v-model="passwordConfirm"
-              label="Tapez de nouveau votre mot de passe"
-              :rules="[passwordRules, passwordMatch]"
-              :type="showPassword ? 'text' : 'password'"
-              placeholder="***************"
-              required
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-btn block x-large class="mt-2 bg-primary" type="submit" value="save"> Enregistrer </v-btn>
-      </v-form>
+      <form_settings_security :user="userProfile" />
       <section class="mt-10">
         <v-divider class="ma-5"></v-divider>
         <h2 class="mb-4">
@@ -60,15 +20,15 @@
           réactions.
         </p>
         <p class="mt-2">Vous pourrez créer un nouveau compte avec la même adresse e-mail.</p>
-        <v-form @submit="deleteMyAccount">
+        <v-form @submit.prevent="deleteMyAccount">
           <v-checkbox
-          v-model="confirmDeleteAccount"
-          label="Je confirme que je veux supprimer mon compte"
-          class="mt-5"
-        ></v-checkbox>
-        <v-btn block x-large class="bg-red" type="submit" :disabled="!confirmDeleteAccount">
-          Supprimer mon compte
-        </v-btn>
+            v-model="confirmDeleteAccount"
+            label="Je confirme que je veux supprimer mon compte"
+            class="mt-5"
+          ></v-checkbox>
+          <v-btn block x-large class="bg-red" type="submit" :disabled="!confirmDeleteAccount">
+            Supprimer mon compte
+          </v-btn>
         </v-form>
       </section>
     </v-card>
@@ -76,24 +36,25 @@
 </template>
 <script>
 import navbar_main from "../components/navbar_main.vue";
-import nav_drawer_desktop from "../components/nav_drawer_desktop.vue";
+import nav_drawer_desktop from "../components/menuDesktop.vue";
+import form_settings_security from "../components/form_settings_private_account.vue";
+import MenuDesktop from "../components/menuDesktop.vue";
 
 export default {
   name: "SettingsAccountSecurityView",
-  components: { navbar_main, nav_drawer_desktop },
-  data: () => ({
-    actualEmail: "",
-    email: "",
-    password: null,
-    passwordConfirm: null,
-    showPassword: false,
-    confirmDeleteAccount: false,
-    passwordRules: [
-      (v) => !!v || "Name is required",
-      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
-    ],
-    emailRules: [(v) => !!v || "E-mail is required", (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"],
-  }),
+  components: { MenuDesktop, navbar_main, nav_drawer_desktop, form_settings_security },
+  data() {
+    return {
+      userProfile: {},
+      actualEmail: "",
+      email: "",
+      password: null,
+      passwordConfirm: null,
+      showPassword: false,
+      confirmDeleteAccount: false,
+      emailRules: [(v) => !!v || "E-mail is required", (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"]
+    };
+  },
   methods: {
     async checkUserIsConnected() {
       if (!localStorage.getItem("session_token")) {
@@ -106,13 +67,12 @@ export default {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("session_token")}`,
-          },
+            Authorization: `Bearer ${localStorage.getItem("session_token")}`
+          }
         });
         const data = await response.json();
         if (data.success) {
-          const user = data.success.user;
-          this.actualEmail = user.email;
+          this.userProfile = data.success.user;
         }
       }
     },
@@ -121,26 +81,25 @@ export default {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("session_token")}`,
-        },
+          Authorization: `Bearer ${localStorage.getItem("session_token")}`
+        }
       });
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       if (data.codeError === "USER_NOT_FOUND") {
         localStorage.removeItem("session_token");
         this.$router.push("/login?deletedAccount=false?error=USER_NOT_FOUND");
-    
       }
 
       if (data.success) {
         localStorage.removeItem("session_token");
-        this.$router.push("/login?deletedAccount=true");
+        this.$router.push("/login");
       }
-    },
+    }
   },
-  mounted() {
+  created() {
     this.checkUserIsConnected();
     this.getUserMe();
-  },
+  }
 };
 </script>

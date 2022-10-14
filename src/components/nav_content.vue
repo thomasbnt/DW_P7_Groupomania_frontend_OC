@@ -1,6 +1,9 @@
 <template>
   <div>
     <profile_icon :user="userProfile" />
+    {{ userProfile }}
+    {{ user }}
+
     <v-list nav dense>
       <v-list-item
         v-for="item in items"
@@ -30,40 +33,43 @@ import account_btn_connect from "./account_btn_connect.vue";
 import nav_btn_bottom from "./nav_btn_bottom.vue";
 
 export default {
-  name: "content_nav",
+  name: "nav_content",
   components: {
     profile_icon,
     account_btn_connect,
-    nav_btn_bottom,
+    nav_btn_bottom
   },
-  props : {
-    user: Object
+  props: {
+    user: Object,
   },
-  data: () => ({
-    items: [
-      { text: "Accueil", icon: "mdi-home", link: "/", userMustBeConnected: false },
-      { text: "Mes informations publiques", link: "/settings", icon: "mdi-account-edit", userMustBeConnected: true },
-      { text: "Paramètres de sécurité", link: "/security", icon: "mdi-security", userMustBeConnected: true },
-    ],
-  }),
+  data () {
+    return {
+      userProfile: {},
+      items: [
+        { text: "Accueil", icon: "mdi-home", link: "/", userMustBeConnected: true },
+        { text: "Mes informations publiques", link: "/settings", icon: "mdi-account-edit", userMustBeConnected: true },
+        { text: "Paramètres de sécurité", link: "/security", icon: "mdi-security", userMustBeConnected: true }
+      ]
+    }
+  },
   methods: {
     async checkUserCanViewThisPage() {
       const user = localStorage.getItem("session_token");
       // Si l'user n'est pas connecté
       if (!user) {
         this.items.forEach((item) => {
-          // pour tout les items du menu où l'user doit être connecté
+          // pour tous les items du menu où l'user doit être connecté
           if (item.userMustBeConnected) {
             // on cache l'item du menu
             item.icon = "mdi-lock";
           }
         });
       }
-    },
+    }
   },
-  mounted() {
+  created() {
     this.checkUserCanViewThisPage();
-  },
+  }
 };
 </script>
 <style scoped>

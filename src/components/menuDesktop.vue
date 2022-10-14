@@ -1,23 +1,22 @@
 <template>
-  <v-navigation-drawer>
-    <nav_content :user="userProfile" />
+  <v-navigation-drawer :user="userProfile">
+    <nav_content :user="userProfile"/>
   </v-navigation-drawer>
 </template>
 <script>
 import nav_content from "./nav_content.vue";
 export default {
-  name: "nav_drawer_desktop",
+  name: "menuDesktop",
+  props: {
+    user: Object,
+  },
   data () {
     return {
       userProfile: {},
     }
   },
-  props: {
-    user: Object,
-  },
   components: {
     nav_content,
   },
-  
 };
 </script>

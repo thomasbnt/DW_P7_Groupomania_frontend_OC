@@ -2,10 +2,17 @@
   <navbar_main />
   <v-container>
     <v-card class="pa-4 mt-10">
-      <h1 class="mb-10 text-uppercase">
+      <h1 class="mb-6 text-uppercase">
         <v-icon>mdi-account-plus</v-icon>
         Se créer un compte
       </h1>
+      <p class="mb-7">Tout les champs sont obligatoires.</p>
+      <v-alert type="success" class="mb-5" v-if="messageConfirmation">
+        {{ messageConfirmation }}
+      </v-alert>
+      <v-alert type="error" class="mb-5" v-if="messageError">
+        {{ messageError }}
+      </v-alert>
       <form @submit.prevent="createNewAccount" class="mb-3">
         <v-text-field
           v-model="email"
@@ -37,9 +44,9 @@
             <v-text-field
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="showPassword = !showPassword"
+              :rules="passwordConfirmRules && passwordRules"
               v-model="passwordConfirm"
               label="Tapez de nouveau votre mot de passe"
-              :rules="passwordRules"
               :type="showPassword ? 'text' : 'password'"
               placeholder="***************"
               required
@@ -51,6 +58,7 @@
           <v-col>
             <v-text-field
               v-model="firstName"
+              :rules="firstNameRules"
               prepend-icon="mdi-account"
               label="Prénom"
               hint="Entrez votre prénom"
@@ -61,6 +69,7 @@
           <v-col>
             <v-text-field
               v-model="lastName"
+              :rules="lastNameRules"
               label="Nom"
               hint="Entrez votre nom"
               placeholder="Alderson"
@@ -74,11 +83,11 @@
           prepend-icon="mdi-cloud-upload"
           v-model="imageProfile"
           show-size
-          accept="image/png, image/jpeg, image/bmp image/gif"
+          accept="image/png, image/jpeg, image/bmp, image/gif"
           outlined
+          required
         ></v-file-input>
 
-        <v-switch v-model="remember_me" label=" Se souvenir de moi" color="green"></v-switch>
         <v-btn block x-large class="mt-2 bg-primary" type="submit" @click="submit" value="S'enregistrer">
           S'enregistrer
         </v-btn>
@@ -97,13 +106,12 @@
 <script>
 import { defineComponent } from "vue";
 
-// Components
 import navbar_main from "../components/navbar_main.vue";
 
 export default defineComponent({
   name: "SignupView",
   components: {
-    navbar_main,
+    navbar_main
   },
   data() {
     return {
@@ -113,14 +121,37 @@ export default defineComponent({
       firstName: "",
       lastName: "",
       imageProfile: "",
+      messageConfirmation: "",
+      messageError: "",
       showPassword: false,
-      remember_me: false,
       emailRules: [(v) => !!v || "E-mail est requis", (v) => /.+@.+/.test(v) || "E-mail doit être valide"],
-      passwordRules: [
-        (v) => !!v || "Le mot de passe est requis",
-        (v) => v.length >= 10 || "Le nombre de caractères doit être supérieur à 10",
-        (v) => v === this.passwordConfirm || "Les mots de passe ne correspondent pas",
+      passwordConfirmRules: [(v) => v === this.password || "Les mots de passe ne sont pas identiques"
       ],
+      passwordRules: [
+        // Min 9 caractères, une lettre en majuscule, un caractère spécial et un chiffre.
+        (v) => !!v || "Le mot de passe est requis",
+        (v) => v.length >= 9 || "Le nombre de caractères doit être supérieur à 9",
+        // Le mot de passe doit comporter au moins une lettre majuscule
+        (v) => /[A-Z]/.test(v) || "Le mot de passe doit comporter au moins une lettre majuscule",
+        // Le mot de passe doit comporter au moins un caractère spécial
+        (v) => /[#?!@$ %^&*-]/.test(v) || "Le mot de passe doit comporter au moins un caractère spécial",
+        // Le mot de passe doit comporter au moins un chiffre
+        (v) => /[0-9]/.test(v) || "Le mot de passe doit comporter au moins un chiffre",
+        // Le mot de passe doit être identique à la confirmation
+        // Les espaces ne sont pas autorisés
+        (v) => !/\s/.test(v) || "Les espaces ne sont pas autorisés"
+      ],
+      lastNameRules: [
+        (v) => !!v || "Le nom est requis",
+        (v) => v.length >= 2 || "Le nombre de caractères doit être supérieur à 2",
+        (v) => !/\s/.test(v) || "Les espaces ne sont pas autorisés",
+        (v) => !/[!@#$%^&*(),.?":{}|<>]/.test(v) || "Le nom ne doit pas comporter de caractères spéciaux"
+      ],
+      firstNameRules: [(v) => !!v || "Le prénom est requis",
+        (v) => v.length >= 2 || "Le nombre de caractères doit être supérieur à 2",
+        (v) => !/\s/.test(v) || "Les espaces ne sont pas autorisés",
+        (v) => !/[!@#$%^&*(),.?":{}|<>]/.test(v) || "Le nom ne doit pas comporter de caractères spéciaux"
+      ]
     };
   },
   methods: {
@@ -130,8 +161,8 @@ export default defineComponent({
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("session_token")}`,
-          },
+            Authorization: `Bearer ${localStorage.getItem("session_token")}`
+          }
         });
         const data = await response.json();
         if (data.success) {
@@ -145,26 +176,35 @@ export default defineComponent({
         email: this.email,
         password: this.password,
         firstName: this.firstName,
-        lastName: this.lastName,
+        lastName: this.lastName
       }));
       formData.append("imageProfile", this.imageProfile[0]);
 
       const response = await fetch("http://localhost:3000/users/signup", {
         method: "POST",
-        body: formData,
+        body: formData
       });
       const data = await response.json();
+      console.log(data);
       if (data.error) {
-        alert(data.error);
+        this.messageConfirmation = "";
+        this.messageError = data.error;
       }
       if (data.success) {
-        this.$router.push("/settings");
+        this.messageError = "";
+        this.messageConfirmation = data.success;
+        // On enregistre le token dans le localStorage
+        localStorage.setItem("session_token", data.session_token);
+        // 3 secondes puis redirect to login
+        setTimeout(() => {
+          this.$router.push("/");
+        }, 3000);
       }
-    },
+    }
   },
   mounted() {
     this.checkUserIsConnected();
-  },
+  }
 });
 </script>
 <style scoped>

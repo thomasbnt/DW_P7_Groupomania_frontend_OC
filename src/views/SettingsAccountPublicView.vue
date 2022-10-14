@@ -7,11 +7,6 @@
         <v-icon>mdi-account-edit</v-icon>
         Mes informations publiques
       </h1>
-      <div class="d-flex align-center">
-        <p class="mb-5">
-          Bonjour <b>{{ actualFirstName }} {{ actualLastName }}</b>
-        </p>
-      </div>
       <form_settings_public_account :user="userProfile" />
 
       <v-divider class="mt-6 mb-9"></v-divider>
@@ -26,9 +21,10 @@
 
 <script>
 import navbar_main from "../components/navbar_main.vue";
-import nav_drawer_desktop from "../components/nav_drawer_desktop.vue";
+import nav_drawer_desktop from "../components/menuDesktop.vue";
 import form_settings_public_account from "../components/form_settings_public_account.vue";
-export default {
+import { defineComponent } from "vue";
+export default defineComponent({
   name: "SettingsAccountView",
   components: { navbar_main, nav_drawer_desktop, form_settings_public_account },
   data: () => ({
@@ -54,35 +50,16 @@ export default {
         const data = await response.json();
         this.userProfile = data.success.user;
 
-        this.actualFirstName = data.success.user.firstName;
-        this.actualLastName = data.success.user.lastName;
-
         if (data.error) {
           localStorage.removeItem("session_token");
           this.$router.push("/login");
         }
       }
     },
-    async editPublicInfos() {
-      // PUT public information application/form-data
-      const session_token = localStorage.getItem("session_token");
-      const formData = new FormData();
-      formData.append("firstName", this.firstName);
-      formData.append("lastName", this.lastName);
-      formData.append("profileImage", this.newImageProfile);
-      const response = await fetch("http://localhost:3000/users/me", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/form-data",
-          Authorization: `Bearer ${session_token}`,
-        },
-        body: formData,
-      });
-      const data = await response.json();
-    },
+
   },
   created() {
     this.checkUserIsConnected();
   },
-};
+})
 </script>

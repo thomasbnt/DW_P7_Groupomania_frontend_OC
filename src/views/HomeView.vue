@@ -2,10 +2,11 @@
   <status_bar />
   <status_api />
   <navbar_main :user="userProfile" />
-  <nav_drawer_desktop :user="userProfile" />
+  <MenuDesktop :user="userProfile" />
   <v-container>
-    <h1>Les derniers posts</h1>
-    <v-card></v-card>
+    <v-card elevation="2" class="pa-6 pb-1 mb-5"><h1 class="mb-5">Les derniers posts</h1></v-card>
+    <form-new-post :user="userProfile" class="mb-10"/>
+    <showAllPosts :user="userProfile" />
   </v-container>
 </template>
 
@@ -14,22 +15,32 @@ import { defineComponent } from "vue";
 
 // Components
 import navbar_main from "../components/navbar_main.vue";
-import nav_drawer_desktop from "../components/nav_drawer_desktop.vue";
+import MenuDesktop from "../components/menuDesktop.vue";
 import status_bar from "../components/status_bar.vue";
 import status_api from "../components/status_api.vue";
+import FormNewPost from "../components/formNewPost.vue";
+import showAllPosts from "../components/showAllPosts.vue";
 
 export default defineComponent({
   name: "HomeView",
   components: {
+    FormNewPost,
     navbar_main,
-    nav_drawer_desktop,
+    MenuDesktop,
     status_bar,
     status_api,
+    showAllPosts,
   },
   data: () => ({
-    userProfile: {},
+    userProfile: {}
   }),
   methods: {
+    async checkIsConnected() {
+      const session_token = localStorage.getItem("session_token");
+      if (!session_token) {
+        this.$router.push("/login");
+      }
+    },
     async getProfile() {
       const session_token = localStorage.getItem("session_token");
       if (session_token) {
@@ -37,16 +48,17 @@ export default defineComponent({
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${session_token}`,
-          },
+            Authorization: `Bearer ${session_token}`
+          }
         });
         const data = await response.json();
         this.userProfile = data.success.user;
       }
-    },
+    }
   },
   created() {
+    this.checkIsConnected()
     this.getProfile();
-  },
+  }
 });
 </script>

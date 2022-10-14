@@ -3,7 +3,6 @@
     <v-spacer></v-spacer>
     <v-items class="mr-1 ml-1">Erreur avec la connexion avec l'API.</v-items>
   </v-system-bar>
-
 </template>
 
 <script>
@@ -22,15 +21,9 @@ export default {
           }
         });
         const data = await response.json();
-        this.apiIsUp = true
       } catch (error) {
         console.info("API is down... waiting 10 seconds to retry");
         this.apiIsUp = false;
-        if (this.apiIsUp === false) {
-          setTimeout(() => {
-            this.status_api();
-          }, 10000);
-        }
       }
     }
   },

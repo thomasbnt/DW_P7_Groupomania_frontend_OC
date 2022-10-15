@@ -46,7 +46,7 @@
 
         </v-col>
       </v-row>
-      <v-btn color="primary" @click.prevent="createNewPost" type="submit">Publier</v-btn>
+      <v-btn color="primary" @click.prevent="createNewPost" type="submit" class="mt-5">Publier</v-btn>
     </v-form>
   </v-card>
 </template>
@@ -109,9 +109,6 @@ export default {
           this.text = "";
           this.image = "";
           this.altText = "";
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
         }
       } else {
         // On envoie le texte via content.text
@@ -137,8 +134,8 @@ export default {
           this.image = "";
           this.altText = "";
           setTimeout(() => {
-            window.location.reload();
-          }, 2000);
+            this.messageConfirmation = "";
+          }, 3000);
         }
       }
     }

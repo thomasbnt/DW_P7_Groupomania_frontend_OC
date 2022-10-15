@@ -144,12 +144,10 @@ export default defineComponent({
       lastNameRules: [
         (v) => !!v || "Le nom est requis",
         (v) => v.length >= 2 || "Le nombre de caractères doit être supérieur à 2",
-        (v) => !/\s/.test(v) || "Les espaces ne sont pas autorisés",
         (v) => !/[!@#$%^&*(),.?":{}|<>]/.test(v) || "Le nom ne doit pas comporter de caractères spéciaux"
       ],
       firstNameRules: [(v) => !!v || "Le prénom est requis",
         (v) => v.length >= 2 || "Le nombre de caractères doit être supérieur à 2",
-        (v) => !/\s/.test(v) || "Les espaces ne sont pas autorisés",
         (v) => !/[!@#$%^&*(),.?":{}|<>]/.test(v) || "Le nom ne doit pas comporter de caractères spéciaux"
       ]
     };
@@ -196,7 +194,7 @@ export default defineComponent({
         // 3 secondes puis redirect to login
         setTimeout(() => {
           this.$router.push("/");
-        }, 3000);
+        }, 1500);
       }
     }
   },

@@ -5,7 +5,7 @@
   <MenuDesktop :user="userProfile" />
   <v-container>
     <v-card elevation="2" class="pa-6 pb-1 mb-5"><h1 class="mb-5">Les derniers posts</h1></v-card>
-    <FormNewPost :user="userProfile" class="mb-10"/>
+    <FormNewPost :user="userProfile" class="mb-6"/>
     <showAllPosts :user="userProfile" />
   </v-container>
 </template>

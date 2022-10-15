@@ -1,5 +1,6 @@
 <template>
   <navbar_main />
+  <MenuDesktop />
   <v-container>
     <v-card class="pa-4 mt-10">
       <h1 class="mb-6 text-uppercase">
@@ -107,10 +108,12 @@
 import { defineComponent } from "vue";
 
 import navbar_main from "../components/navbar_main.vue";
+import MenuDesktop from "../components/menuDesktop.vue";
 
 export default defineComponent({
   name: "SignupView",
   components: {
+    MenuDesktop,
     navbar_main
   },
   data() {

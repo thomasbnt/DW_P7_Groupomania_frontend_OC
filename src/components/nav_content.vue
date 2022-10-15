@@ -45,7 +45,9 @@ export default {
       items: [
         { text: "Accueil", icon: "mdi-home", link: "/", userMustBeConnected: true },
         { text: "Mes informations publiques", link: "/settings", icon: "mdi-account-edit", userMustBeConnected: true },
-        { text: "Paramètres de sécurité", link: "/security", icon: "mdi-security", userMustBeConnected: true }
+        { text: "Paramètres de sécurité", link: "/security", icon: "mdi-security", userMustBeConnected: true },
+        { text: "Vie privée", link: "/privacy", icon: "mdi-account-key", userMustBeConnected: false },
+        { text: "Conditions d'utilisations", link: "/terms", icon: "mdi-account-details", userMustBeConnected: false }
       ]
     }
   },

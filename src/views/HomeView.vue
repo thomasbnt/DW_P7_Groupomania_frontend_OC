@@ -1,5 +1,5 @@
 <template>
-  <status_bar />
+  <status_bar :user="userProfile"/>
   <status_api />
   <navbar_main :user="userProfile" />
   <MenuDesktop :user="userProfile" />

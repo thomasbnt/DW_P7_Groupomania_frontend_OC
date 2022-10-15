@@ -1,5 +1,5 @@
 <template>
-  <v-system-bar color="green darken-4" v-if="statusBarActivated">
+  <v-system-bar color="green darken-4" v-if="user.role === 'ADMIN' && statusBarActivated">
     <v-spacer></v-spacer>
     <v-items class="mr-1 ml-1">{{ stats.users }}
       <v-icon>mdi-account</v-icon>
@@ -15,6 +15,9 @@
 <script>
 export default {
   name: "status_bar",
+  props: {
+    user: Object
+  },
   data: () => ({
     statusBarActivated: false,
     status: "Hors ligne",

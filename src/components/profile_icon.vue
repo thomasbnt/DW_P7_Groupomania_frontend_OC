@@ -56,8 +56,10 @@ export default {
           Authorization: `Bearer ${session_token}`
         }
       });
-      const data = await response.json();
-      this.userProfile = data.success.user;
+      if (response.ok) {
+        const data = await response.json();
+        this.userProfile = data.success.user;
+      }
     }
   },
   created() {

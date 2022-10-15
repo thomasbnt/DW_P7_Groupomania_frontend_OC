@@ -84,7 +84,6 @@ export default {
         }
       });
       const data = await response.json();
-      console.log(data);
       if (data.code === "REACTION_ADDED" || data.code === "REACTION_REMOVED") {
         this.messageConfirmationReaction = data.message;
       }

@@ -1,6 +1,6 @@
 <template>
   <v-app-bar>
-    <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="d-flex d-sm-flex d-md-none"></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer" class="d-flex d-sm-flex d-md-flex d-lg-none"></v-app-bar-nav-icon>
     <router-link to="/" class="ml-2 groupomania_logo">
       <img src="/src/assets/img/logo.svg" class="align-self-center" alt="Logo Groupomania" />
     </router-link>

@@ -3,16 +3,16 @@
     <v-row>
       <v-col>
         <div class="header_post">
-          <v-img class="avatar" :src="post.author.imageProfile" alt="avatar"></v-img>
+          <v-img class="avatar" :src="post.author.imageProfile" alt="avatar" rel="preload"></v-img>
           <div>
-            <h3>{{ post.author.firstName }} {{ post.author.lastName }}</h3>
+            <h2>{{ post.author.firstName }} {{ post.author.lastName }}</h2>
             <small>Crée le {{ formatDate(post.createdAt) }}</small>
           </div>
         </div>
         <p>{{ post.text }}</p>
       </v-col>
       <v-col v-if="post.image">
-        <v-img :src="post.image" :alt="post.altText" />
+        <v-img :src="post.image" :alt="post.altText" rel="preload" />
       </v-col>
     </v-row>
     <!--  Partie like, edit et supp   -->
@@ -24,15 +24,15 @@
           <v-icon>mdi-cards-heart</v-icon>
         </v-btn>
       </div>
-      <div v-if="(post.author.id === user.id) && (user.role !== 'ADMIN')" class="ml-auto">
-        <!-- Modifier et supprimer en tant qu'utilisateur     -->
-        <v-btn color="secondary" @click="editPost(post.id)">Modifier</v-btn>
-        <v-btn color="error" class="ml-1" @click="deletePost(post.id)">Supprimer</v-btn>
-      </div>
 
-      <div v-if="user.role === 'ADMIN'" class="ml-auto">
-        <small class="mr-2">Action en tant qu'administrateur</small>
-        <v-btn color="secondary" @click="editPost(post.id)">Modifier</v-btn>
+      <div v-if="(post.author.id === user.id) || user.role === 'ADMIN'" class="ml-auto">
+        <small class="mr-2" v-if="user.role === 'ADMIN'">Actions en tant qu'administrateur</small>
+
+
+        <modalEditPost :post="post" :user="user" @cancel-edition="cancelEdition" />
+
+
+        <!-- Supp post -->
         <v-btn color="error" class="ml-1" @click="deletePost(post.id)">Supprimer</v-btn>
       </div>
     </div>
@@ -40,17 +40,21 @@
 </template>
 
 <script>
+import modalEditPost from "./modalEditPost.vue";
 export default {
   name: "showAllPosts",
   props: {
     user: Object,
     post: Object
   },
+  components: {
+    modalEditPost
+  },
   data() {
     return {
       userProfile: {},
       posts: [],
-      messageConfirmationReaction: ""
+      messageConfirmationReaction: "",
     };
   },
   methods: {
@@ -72,7 +76,6 @@ export default {
     async getAllPostsTime() {
       setInterval(() => {
         this.getAllPosts();
-        console.log(`Mise à jour des derniers posts le ${new Date()}`);
       }, 10000);
     },
     async likePost(id) {
@@ -93,56 +96,7 @@ export default {
       }
       await this.getAllPosts();
     },
-    async editPost(id) {
-      const session_token = localStorage.getItem("session_token");
-      if (!session_token) {
-        return this.messageError = "Vous devez être connecté pour modifier un post";
-      }
-      // S'il y a une image
-      if (this.image) {
-        const formData = new FormData();
-        formData.append("content", JSON.stringify({
-          text: this.text,
-          altText: this.altText
-        }));
-        formData.append("image", this.image[0]);
-        const response = await fetch(`http://localhost:3000/posts/${id}`, {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${session_token}`
-          },
-          body: formData
-        });
-        const data = await response.json();
-        if (data.error) {
-          this.messageConfirmation = "";
-          this.messageError = data.error;
-        } else {
-          this.messageError = "";
-          this.messageConfirmation = data.success;
-        }
-      } else {
-        const response = await fetch(`http://localhost:3000/posts/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${session_token}`
-          },
-          body: JSON.stringify({
-            text: this.text,
-            altText: this.altText
-          })
-        });
-        const data = await response.json();
-        if (data.error) {
-          this.messageConfirmation = "";
-          this.messageError = data.error;
-        } else {
-          this.messageError = "";
-          this.messageConfirmation = data.success;
-        }
-      }
-    },
+
     async deletePost(id) {
       const session_token = localStorage.getItem("session_token");
       if (!session_token) {
@@ -158,10 +112,12 @@ export default {
       if (data.error) {
         this.messageConfirmation = "";
         this.messageError = data.error;
+        this.dialogDeletePost = false;
       } else {
         this.messageError = "";
         this.messageConfirmation = data.success;
         await this.getAllPosts();
+        this.dialogDeletePost = false;
       }
     }
   },

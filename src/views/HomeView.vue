@@ -19,7 +19,7 @@ import MenuDesktop from "../components/menuDesktop.vue";
 import status_bar from "../components/status_bar.vue";
 import status_api from "../components/status_api.vue";
 import FormNewPost from "../components/formNewPost.vue";
-import showAllPosts from "../components/showAllPosts.vue";
+import showAllPosts from "../components/systemPosts.vue";
 
 export default defineComponent({
   name: "HomeView",

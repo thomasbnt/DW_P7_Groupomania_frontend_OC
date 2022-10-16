@@ -43,7 +43,6 @@ const router = createRouter({
       path: '/terms',
       name: 'terms',
       component: () => import('../views/TermsView.vue')
-
     }
   ]
 })

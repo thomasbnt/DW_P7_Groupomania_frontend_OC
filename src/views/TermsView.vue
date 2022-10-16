@@ -3,7 +3,7 @@
   <MenuDesktop :user="userProfile" />
   <v-container>
     <v-card elevation="2" class="pa-6 pb-1 mb-5">
-      <h1 class="mb-5">Conditions d'utilisations</h1>
+      <h1 class="mb-5">Conditions d'utilisation</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa necessitatibus neque odit possimus quos.
         Accusantium assumenda, cum dolores facilis harum inventore minus molestiae mollitia quae, quasi similique soluta

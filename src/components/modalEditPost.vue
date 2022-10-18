@@ -1,5 +1,5 @@
 <template>
-  <v-btn color="secondary" @click="openDialogEditPost(post.id)" v-if="!(user.role === 'ADMIN')">
+  <v-btn color="secondary" @click="openDialogEditPost(post.id)" v-if="(post.author.id === user.id)">
     Editer
   </v-btn>
 

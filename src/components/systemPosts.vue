@@ -28,9 +28,7 @@
       <div v-if="(post.author.id === user.id) || user.role === 'ADMIN'" class="ml-auto">
         <small class="mr-2" v-if="user.role === 'ADMIN'">Actions en tant qu'administrateur</small>
 
-
         <modalEditPost :post="post" :user="user" @cancel-edition="cancelEdition" />
-
 
         <!-- Supp post -->
         <v-btn color="error" class="ml-1" @click="deletePost(post.id)">Supprimer</v-btn>

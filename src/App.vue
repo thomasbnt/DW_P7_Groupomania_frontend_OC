@@ -14,3 +14,8 @@ export default {
   data: () => ({})
 };
 </script>
+<style>
+body {
+  font-family: 'Lato', sans-serif;
+}
+</style>

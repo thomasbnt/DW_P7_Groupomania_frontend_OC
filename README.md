@@ -53,7 +53,7 @@ npm run build
 - [x]  Respecter le code couleur
 - [x]  Mettre en place les pages demandées
 - [x]  Site web responsive
-- [ ]  Standards WCAG
+- [x]  Standards WCAG
 - [x]  Utiliser un framework JS
 
 ## Développement

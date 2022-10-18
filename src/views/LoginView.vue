@@ -51,7 +51,6 @@
 <script>
 import { defineComponent } from "vue";
 
-// Components
 import navbar_main from "../components/navbar_main.vue";
 import MenuDesktop from "../components/menuDesktop.vue";
 

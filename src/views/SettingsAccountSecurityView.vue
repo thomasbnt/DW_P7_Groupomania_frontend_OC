@@ -52,7 +52,8 @@ export default {
       passwordConfirm: null,
       showPassword: false,
       confirmDeleteAccount: false,
-      emailRules: [(v) => !!v || "E-mail is required", (v) => /.+@.+\..+/.test(v) || "E-mail must be valid"]
+      emailRules: [(v) => /.+@.+\..+/.test(v) || "E-mail must be valid"],
+      passwordConfirmRules: [(v) => v === this.password || "Les mots de passe ne sont pas identiques"],
     };
   },
   methods: {

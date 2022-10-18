@@ -41,7 +41,7 @@
           @click:append="showPassword = !showPassword"
           v-model="passwordConfirm"
           label="Tapez de nouveau votre mot de passe"
-          :rules="checkSamePassword"
+          :rules="passwordConfirmRules"
           :type="showPassword ? 'text' : 'password'"
           placeholder="***************"
           required
@@ -87,10 +87,7 @@ export default {
         // Les espaces ne sont pas autorisés
         (v) => !/\s/.test(v) || "Les espaces ne sont pas autorisés"
       ],
-      checkSamePassword: [
-        (v) => !!v || "La confirmation du mot de passe est obligatoire",
-        (v) => v === this.password || "Les mots de passe ne correspondent pas"
-      ]
+      passwordConfirmRules: [(v) => v === this.password || "Les mots de passe ne sont pas identiques"],
     };
   },
   methods: {
@@ -98,6 +95,11 @@ export default {
       const session_token = localStorage.getItem("session_token");
       if (!session_token) {
         this.$router.push({ name: "login" });
+      }
+      if (this.password && !this.passwordConfirm) {
+        this.messageConfirmation = "";
+        this.messageError = "Veuillez tapez de nouveau votre mot de passe";
+        return;
       }
       await fetch("http://localhost:3000/users/security", {
         method: "PUT",

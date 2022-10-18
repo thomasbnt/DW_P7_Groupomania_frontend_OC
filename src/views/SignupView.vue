@@ -45,7 +45,7 @@
             <v-text-field
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
               @click:append="showPassword = !showPassword"
-              :rules="passwordConfirmRules && passwordRules"
+              :rules="passwordConfirmRules"
               v-model="passwordConfirm"
               label="Tapez de nouveau votre mot de passe"
               :type="showPassword ? 'text' : 'password'"
@@ -128,8 +128,7 @@ export default defineComponent({
       messageError: "",
       showPassword: false,
       emailRules: [(v) => !!v || "E-mail est requis", (v) => /.+@.+/.test(v) || "E-mail doit être valide"],
-      passwordConfirmRules: [(v) => v === this.password || "Les mots de passe ne sont pas identiques"
-      ],
+      passwordConfirmRules: [(v) => v === this.password || "Les mots de passe ne sont pas identiques"],
       passwordRules: [
         // Min 9 caractères, une lettre en majuscule, un caractère spécial et un chiffre.
         (v) => !!v || "Le mot de passe est requis",

@@ -35,7 +35,7 @@
 export default {
   name: "account_btn_login",
   data: () => ({
-    user_connected: localStorage.getItem("session_token") ? true : false,
+    user_connected: !!localStorage.getItem("session_token"),
   }),
   mounted() {
     this.check_user();

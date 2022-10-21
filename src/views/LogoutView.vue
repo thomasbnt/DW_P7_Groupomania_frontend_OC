@@ -27,7 +27,7 @@ export default defineComponent({
       const session_token = localStorage.getItem("session_token");
       if (session_token) {
         localStorage.removeItem("session_token");
-        this.$router.push("/");
+        this.$router.push("/login");
       }
     },
   },

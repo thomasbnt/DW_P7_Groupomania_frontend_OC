@@ -130,7 +130,7 @@ export default defineComponent({
       emailRules: [(v) => !!v || "E-mail est requis", (v) => /.+@.+/.test(v) || "E-mail doit être valide"],
       passwordConfirmRules: [(v) => v === this.password || "Les mots de passe ne sont pas identiques"],
       passwordRules: [
-        // Min 9 caractères, une lettre en majuscule, un caractère spécial et un chiffre.
+        // Min 8 caractères, une lettre en majuscule, un caractère spécial et un chiffre.
         (v) => !!v || "Le mot de passe est requis",
         (v) => v.length >= 8 || "Le nombre de caractères doit être de minimum 8 caractères",
         // Le mot de passe doit comporter au moins une lettre majuscule
